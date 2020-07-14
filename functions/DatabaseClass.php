@@ -29,7 +29,7 @@ class DatabaseClass
     // function to select row(s) in a database
     public function Read($statement = "", $parameters = [])
     {
-        $stmt = $this->executeStatement($statement);
+        $stmt = $this->executeStatement($statement, $parameters);
         return $stmt->fetchAll();
     }
 

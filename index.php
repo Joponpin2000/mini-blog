@@ -52,7 +52,7 @@ $database = new DatabaseClass();
           </div>
 
           <div class="col-4 site-logo">
-            <a href="index.html" class="text-black h2 mb-0">Mini Blog</a>
+            <a href="" class="text-black h2 mb-0">Mini Blog</a>
           </div>
 
           <div class="col-8 text-right">
@@ -78,30 +78,28 @@ $database = new DatabaseClass();
       <div class="container">
         <div class="row align-items-stretch retro-layout-2">
           <?php
-              $statement = "SELECT c.name as category_name, p.id, p.title, p.slug, p.body, p.image, p.category_id, p.created_at
-              FROM posts p LEFT JOIN topics c ON p.category_id = c.id
-              ORDER BY p.created_at";
+            $statement = "SELECT c.name as category_name, p.id, p.title, p.slug, p.body, p.image, p.category_id, p.created_at
+            FROM posts p LEFT JOIN topics c ON p.category_id = c.id
+            ORDER BY p.created_at";
 
-              $posts = $database->Read($statement);
+            $posts = $database->Read($statement);
 
-              foreach ($posts as $post)
-              {
+            foreach ($posts as $post)
+            {
           ?>
-          <div class="col-md-4">
-            <a href="single_post.php?title=<?php echo $post['slug']?>" class="h-entry mb-30 v-height gradient" style="background-image: url('images/<?php echo $post['image']; ?>');">
-              
-              <div class="text">
-                <h2><?php echo $post['title']; ?>
-                </h2>
-                <span class="date"><?php echo date("F j, Y ", strtotime($post['created_at'])); ?></span>
+              <div class="col-md-4">
+                <a href="single.php?title=<?php echo $post['slug']?>" class="h-entry mb-30 v-height gradient" style="background-image: url('images/<?php echo $post['image']; ?>');">
+                  <div class="text">
+                    <h2><?php echo $post['title']; ?>
+                    </h2>
+                    <span class="date"><?php echo date("F j, Y ", strtotime($post['created_at'])); ?></span>
+                  </div>
+                </a>
               </div>
-            </a>
-          </div>
-          <?php
-                    unset($statement);
-
-                }
-            ?>
+        <?php
+                unset($statement);
+              }
+          ?>
         </div>
       </div>
     </div>
@@ -126,11 +124,11 @@ $database = new DatabaseClass();
             ?>
                     <div class="col-lg-4 mb-4">
                         <div class="entry2">
-                        <a href="single.html"><img src="images/<?php echo $post['image']; ?>" alt="Image" class="img-fluid rounded"></a>
+                        <a href="single.php?title=<?php echo $post['slug']?>"><img src="images/<?php echo $post['image']; ?>" alt="Image" class="img-fluid rounded"></a>
                         <div class="excerpt">
                         <span class="post-category text-white bg-success mb-3"><?php echo $post['category_name']; ?></span>
 
-                        <h2><a href="single.html"><?php echo $post['title']; ?></a></h2>
+                        <h2><a href="single.php?title=<?php echo $post['slug']?>"><?php echo $post['title']; ?></a></h2>
                         <div class="post-meta align-items-center text-left clearfix">
                             <figure class="author-figure mb-0 mr-3 float-left"><img src="images/person_1.jpg" alt="Image" class="img-fluid"></figure>
                             <span class="d-inline-block mt-1">By <a href="#">Carrol Atkinson</a></span>
@@ -185,7 +183,7 @@ $database = new DatabaseClass();
               {
           ?>
                 <div class="col-md-6">
-                  <a href="single.html" class="hentry img-2 v-height mb30 gradient" style="background-image: url('images/<?php echo $post['image']; ?>');">
+                  <a href="single.php?title=<?php echo $post['slug']?>" class="hentry img-2 v-height mb30 gradient" style="background-image: url('images/<?php echo $post['image']; ?>');">
                     <span class="post-category text-white bg-success"><?php echo $post['category_name']; ?></span>
                     <div class="text text-sm">
                       <h2><?php echo $post['title']; ?></h2>
