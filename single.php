@@ -1,4 +1,9 @@
- <!DOCTYPE html>
+<?php
+require_once("functions/DatabaseClass.php");
+
+$database = new DatabaseClass();
+?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Mini Blog</title>
