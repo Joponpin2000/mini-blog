@@ -1,7 +1,9 @@
 <?php
+error_reporting(0);
 require_once("functions/DatabaseClass.php");
 
 $database = new DatabaseClass();
+
 ?>
 
 
@@ -44,35 +46,29 @@ $database = new DatabaseClass();
       <div class="container-fluid">
         <div class="row align-items-center">
           
-          <div class="col-12 search-form-wrap js-search-form">
-            <form method="get" action="#">
-              <input type="text" id="s" class="form-control" placeholder="Search...">
+          <div class="col-12 search-form-wrap js-search-form" style="height: auto; margin-top: 30px;">
+            <form method="get" action="">
+              <input type="text" id="search-input" class="form-control" placeholder="Search...">
+              <div id="result" style="position:relative;top:300; right:500;z-index: 3000;width:350px;background:white;"></div>
               <button class="search-btn" type="submit"><span class="icon-search"></span></button>
             </form>
           </div>
-
           <div class="col-4 site-logo">
             <a href="" class="text-black h2 mb-0">Mini Blog</a>
           </div>
-
           <div class="col-8 text-right">
             <nav class="site-navigation" role="navigation">
               <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block mb-0">
                 <li><a href="">Home</a></li>
-                <li><a href="">Politics</a></li>
-                <li><a href="">Tech</a></li>
-                <li><a href="">Entertainment</a></li>
-                <li><a href="">Travel</a></li>
-                <li><a href="">Sports</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
                 <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li>
               </ul>
             </nav>
             <a href="#" class="site-menu-toggle js-menu-toggle text-black d-inline-block d-lg-none"><span class="icon-menu h3"></span></a></div>
           </div>
-
       </div>
     </header>
-    
     
     <div class="site-section bg-light">
       <div class="container">
@@ -80,7 +76,7 @@ $database = new DatabaseClass();
           <?php
             $statement = "SELECT c.name as category_name, p.id, p.title, p.slug, p.body, p.image, p.category_id, p.created_at
             FROM posts p LEFT JOIN topics c ON p.category_id = c.id
-            ORDER BY p.created_at";
+            ORDER BY p.created_at LIMIT 0, 6";
 
             $posts = $database->Read($statement);
 
@@ -113,14 +109,25 @@ $database = new DatabaseClass();
         </div>
         <div class="row">
             <?php
-                $statement = "SELECT c.name as category_name, p.id, p.title, p.slug, p.body, p.image, p.category_id, p.created_at
-                                FROM posts p LEFT JOIN topics c ON p.category_id = c.id
-                                ORDER BY p.created_at DESC";
+              $limit = 3;
 
-                $posts = $database->Read($statement);
+              if (isset($_GET['page']))
+              {
+                $page = trim($_GET['page']);
+              }
+              else
+              {
+                $page = 1;
+              }
+              $start_from = ($page-1) * $limit;
+              $statement = "SELECT c.name as category_name, p.id, p.title, p.slug, p.body, p.image, p.category_id, p.created_at
+                              FROM posts p LEFT JOIN topics c ON p.category_id = c.id
+                              ORDER BY p.created_at DESC LIMIT $start_from, $limit";
 
-                foreach ($posts as $post)
-                {
+              $posts = $database->Read($statement);
+
+              foreach ($posts as $post)
+              {
             ?>
                     <div class="col-lg-4 mb-4">
                         <div class="entry2">
@@ -136,14 +143,14 @@ $database = new DatabaseClass();
                         </div>
                         <p>
                             <?php
-                                $limit = 50;
-                                if (strlen($post['title']) <= $limit)
+                                $body_limit = 50;
+                                if (strlen($post['title']) <= $body_limit)
                                 {
                                     echo $post['body'];
                                 }
                                 else
                                 {
-                                    echo substr_replace($post['body'], "..", $limit);
+                                    echo substr_replace($post['body'], "..", $body_limit);
                                 }
                             ?>
 </p>
@@ -159,12 +166,18 @@ $database = new DatabaseClass();
         <div class="row text-center pt-5 border-top">
           <div class="col-md-12">
             <div class="custom-pagination">
-              <span>1</span>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <span>...</span>
-              <a href="#">15</a>
+              <?php
+                $result_db = "SELECT COUNT(id) FROM posts";
+                $row_db = $database->Read($result_db);
+                $total_records = $row_db[0]['COUNT(id)'];
+                $total_pages = ceil($total_records / $limit);
+                $pagLink = "";
+                for ($i = 1; $i <= $total_pages; $i++)
+                {
+                  $pagLink .= "<a href='index.php?page=" . $i . "'>" . $i . "</a>";
+                }
+                echo $pagLink;
+              ?>
             </div>
           </div>
         </div>
@@ -176,7 +189,7 @@ $database = new DatabaseClass();
         <div class="row align-items-stretch retro-layout">
           <?php
               $statement = "SELECT c.name as category_name, p.id, p.title, p.slug, p.body, p.image, p.category_id, p.created_at
-                              FROM posts p LEFT JOIN topics c ON p.category_id = c.id";
+                              FROM posts p LEFT JOIN topics c ON p.category_id = c.id LIMIT 0, 4";
               $posts = $database->Read($statement);
               
               foreach ($posts as $post)
@@ -219,55 +232,9 @@ $database = new DatabaseClass();
     </div>
     
     
-    <div class="site-footer">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-4">
-            <h3 class="footer-heading mb-4">About Us</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat reprehenderit magnam deleniti quasi saepe, consequatur atque sequi delectus dolore veritatis obcaecati quae, repellat eveniet omnis, voluptatem in. Soluta, eligendi, architecto.</p>
-          </div>
-          <div class="col-md-3 ml-auto">
-            <!-- <h3 class="footer-heading mb-4">Navigation</h3> -->
-            <ul class="list-unstyled float-left mr-5">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Advertise</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Subscribes</a></li>
-            </ul>
-            <ul class="list-unstyled float-left">
-              <li><a href="#">Travel</a></li>
-              <li><a href="#">Lifestyle</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Nature</a></li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            
-
-            <div>
-              <h3 class="footer-heading mb-4">Connect With Us</h3>
-              <p>
-                <a href="#"><span class="icon-facebook pt-2 pr-2 pb-2 pl-0"></span></a>
-                <a href="#"><span class="icon-twitter p-2"></span></a>
-                <a href="#"><span class="icon-instagram p-2"></span></a>
-                <a href="#"><span class="icon-rss p-2"></span></a>
-                <a href="#"><span class="icon-envelope p-2"></span></a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 text-center">
-            <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
+    <?php
+    include_once("footer.html");
+    ?>
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
