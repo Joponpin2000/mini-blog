@@ -11,7 +11,7 @@ if(isset($_GET['title']))
   $slug = trim($_GET['title']);
   $database = new DatabaseClass("localhost", "blog", "root", "");
 
-  $sql = "SELECT c.name as category_name, p.id, p.title, p.slug, p.body, p.image, p.category_id, p.created_at
+  $sql = "SELECT c.name as category_name, c.slug as category_slug, p.id, p.title, p.slug, p.body, p.image, p.category_id, p.created_at
   FROM posts p LEFT JOIN topics c ON p.category_id = c.id
   WHERE p.slug = :slug";
   $blog = $database->Read($sql, ["slug" => $slug]);
@@ -146,7 +146,7 @@ else
 
             
             <div class="pt-5">
-              <p>Category:  <a href="#"><?php echo $blog[0]['category_name']; ?></p>
+              <p>Category:  <a href="category.php?title=<?php echo $blog[0]['category_slug']?>"><?php echo $blog[0]['category_name']; ?></p>
             </div>
 
 
@@ -249,7 +249,7 @@ else
                         <div class="text">
                           <h4><?php echo $post['title']; ?></h4>
                           <div class="post-meta">
-                            <span class="mr-2"><?php echo date("F j, Y ", strtotime($reply['added_on'])); ?> </span>
+                            <span class="mr-2"><?php echo date("F j, Y ", strtotime($post['created_at'])); ?> </span>
                           </div>
                         </div>
                       </a>
@@ -271,7 +271,7 @@ else
                   $query = "SELECT COUNT(*) FROM posts WHERE category_id=:category_id";
                   $count = $database->Read($query, ["category_id" => $category['id']]);
             ?>
-                  <li><a href="#"><?php echo $category['name']?> <span><?php echo $count[0]['COUNT(*)']; ?></span></a></li>
+                  <li><a href="category.php?title=<?php echo $category['slug']?>"><?php echo $category['name']?> <span><?php echo $count[0]['COUNT(*)']; ?></span></a></li>
               <?php
                 }
               ?>
