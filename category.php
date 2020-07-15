@@ -11,7 +11,18 @@ if(isset($_GET['title']))
 
   if ($blog)
   {
-    $query = "SELECT * FROM posts WHERE category_id = :category_id";
+    if (isset($_GET['page']))
+    {
+      $page = trim($_GET['page']);
+    }
+    else
+    {
+      $page = 1;
+    }
+    $limit = 6;
+    $start_from = ($page-1) * $limit;
+
+    $query = "SELECT * FROM posts WHERE category_id = :category_id LIMIT $start_from, $limit";
     $posts = $database->Read($query, ["category_id" => $blog[0]['id']]);
   }
   else
@@ -80,7 +91,7 @@ else
           <div class="col-8 text-right">
             <nav class="site-navigation" role="navigation">
               <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block mb-0">
-                <li><a href="">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.php">Contact Us</a></li>
                 <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li>
@@ -135,12 +146,18 @@ else
         <div class="row text-center pt-5 border-top">
           <div class="col-md-12">
             <div class="custom-pagination">
-              <span>1</span>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <span>...</span>
-              <a href="#">15</a>
+            <?php
+                $result_db = "SELECT COUNT(id) FROM posts";
+                $row_db = $database->Read($result_db);
+                $total_records = $row_db[0]['COUNT(id)'];
+                $total_pages = ceil($total_records / $limit);
+                $pagLink = "";
+                for ($i = 1; $i <= $total_pages; $i++)
+                {
+                  $pagLink .= "<a href='category.php?title=" . $blog[0]['slug'] . "&page=" . $i . "'>" . $i . "</a>";
+                }
+                echo $pagLink;
+              ?>
             </div>
           </div>
       </div>
