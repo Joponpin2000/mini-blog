@@ -102,6 +102,7 @@ else
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="admin/posts.php">Login</a></li>
                 <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li>
               </ul>
             </nav>
@@ -112,7 +113,7 @@ else
     </header>
     
     
-    <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('images/img_2.jpg');">
+    <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('images/<?php echo $blog[0]['image']; ?>');">
       <div class="container">
         <div class="row same-height justify-content-center">
           <div class="col-md-12 col-lg-10">
@@ -138,7 +139,8 @@ else
           <div class="col-md-12 col-lg-8 main-content">
             
             <div class="post-content-body">
-            <?php echo $blog[0]['body']; ?>
+              <h1><?php echo $blog[0]['title']; ?></h1>
+              <?php echo $blog[0]['body']; ?>
             </div>
 
             
@@ -217,9 +219,9 @@ else
             <!-- END sidebar-box -->
             <div class="sidebar-box">
               <div class="bio text-center">
-                <img src="images/person_2.jpg" alt="Image Placeholder" class="img-fluid mb-5">
+                <img src="images/person_1.jpg" alt="Image Placeholder" class="img-fluid mb-5">
                 <div class="bio-body">
-                  <h2>Craig David</h2>
+                  <h2>Mary Doe</h2>
                   <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
                   <p><a href="#" class="btn btn-primary btn-sm rounded px-4 py-2">Read my bio</a></p>
                   <p class="social">

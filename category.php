@@ -94,6 +94,7 @@ else
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="admin/posts.php">Login</a></li>
                 <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li>
               </ul>
             </nav>
@@ -125,18 +126,18 @@ else
             ?>
                     <div class="col-lg-4 mb-4">
                         <div class="entry2">
-                        <a href="single.php?title=<?php echo $post['slug']?>"><img src="images/<?php echo $post['image']; ?>" alt="Image" class="img-fluid rounded"></a>
-                        <div class="excerpt">
-                            <span class="post-category text-white bg-warning mb-3"><?php echo $blog[0]['name']; ?></span>
-                            <h2><a href="single.php?title=<?php echo $post['slug']?>"><?php echo $post['title']; ?></a></h2>
-                        <div class="post-meta align-items-center text-left clearfix">
-                            <figure class="author-figure mb-0 mr-3 float-left"><img src="images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-                            <span class="d-inline-block mt-1">By <a href="#">Author</a></span>
-                            <span>&nbsp;-&nbsp; <?php echo date("F j, Y ", strtotime($post['created_at'])); ?></span>
-                        </div>
-                            <p><?php echo $post['body']; ?></p>
-                            <p><a href="single.php?title=<?php echo $post['slug']?>">Read More</a></p>
-                        </div>
+                          <a href="single.php?title=<?php echo $post['slug']?>"><img src="images/<?php echo $post['image']; ?>" alt="Image" class="img-fluid rounded m-i-h"></a>
+                          <div class="excerpt">
+                              <span class="post-category text-white bg-warning mb-3"><?php echo $blog[0]['name']; ?></span>
+                              <h2><a href="single.php?title=<?php echo $post['slug']?>"><?php echo $post['title']; ?></a></h2>
+                          <div class="post-meta align-items-center text-left clearfix">
+                              <figure class="author-figure mb-0 mr-3 float-left"><img src="images/person_1.jpg" alt="Image" class="img-fluid"></figure>
+                              <span class="d-inline-block mt-1">By <a href="#">Author</a></span>
+                              <span>&nbsp;-&nbsp; <?php echo date("F j, Y ", strtotime($post['created_at'])); ?></span>
+                          </div>
+                              <p><?php echo $post['body']; ?></p>
+                              <p><a href="single.php?title=<?php echo $post['slug']?>">Read More</a></p>
+                          </div>
                         </div>
                     </div>
             <?php

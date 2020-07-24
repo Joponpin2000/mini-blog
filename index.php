@@ -6,8 +6,6 @@ $database = new DatabaseClass();
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -62,6 +60,7 @@ $database = new DatabaseClass();
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="admin/posts.php">Login</a></li>
                 <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li>
               </ul>
             </nav>
@@ -131,7 +130,7 @@ $database = new DatabaseClass();
             ?>
                     <div class="col-lg-4 mb-4">
                         <div class="entry2">
-                        <a href="single.php?title=<?php echo $post['slug']?>"><img src="images/<?php echo $post['image']; ?>" alt="Image" class="img-fluid rounded"></a>
+                        <a href="single.php?title=<?php echo $post['slug']?>"><img src="images/<?php echo $post['image']; ?>" alt="Image" class="img-fluid rounded m-i-h"></a>
                         <div class="excerpt">
                         <span class="post-category text-white bg-success mb-3"><?php echo $post['category_name']; ?></span>
 
@@ -144,7 +143,7 @@ $database = new DatabaseClass();
                         <p>
                             <?php
                                 $body_limit = 50;
-                                if (strlen($post['title']) <= $body_limit)
+                                if (strlen($post['body']) <= $body_limit)
                                 {
                                     echo $post['body'];
                                 }
