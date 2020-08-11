@@ -153,7 +153,7 @@ $database = new DatabaseClass();
                                 }
                             ?>
 </p>
-                        <p><a href="#">Read More</a></p>
+                        <p><a href="single.php?title=<?php echo $post['slug']?>">Read More</a></p>
                         </div>
                         </div>
                     </div>

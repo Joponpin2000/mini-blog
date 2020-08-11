@@ -2,6 +2,9 @@
 // include function file
 require_once("functions/DatabaseClass.php");
 
+$name = $email = $message = $website = '';
+$name_err = $email_err = '';
+
 
 if ($_SERVER["REQUEST_METHOD"] =="POST")
 {
@@ -30,17 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] =="POST")
 
         $post_id = trim($_POST['post_id']);
 
-        //validate message
-        if(empty(trim($_POST["message"])))
-        {
-            $message_err = "Please enter your message.";
-        }
-        else {
-            $message = trim($_POST["message"]);
-        }
+        $message = trim($_POST["message"]); 
 
         //Check input errors before inserting in databse
-        if(empty($name_err) && (empty($message_err) && empty($email_err)))
+        if(empty($name_err) && (!empty($message) && empty($email_err)))
         {
             $db_connect = new DatabaseClass("localhost", "blog", "root", "");
 
