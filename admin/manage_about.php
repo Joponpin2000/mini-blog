@@ -140,10 +140,13 @@ unset($pdo);
                     </div>
                     <ul class="list-unstyled components">
                         <li>
+                            <a href="./">Dashboard</a>
+                        </li>
+                        <li>
                             <a href="categories.php">Categories</a>
                         </li>
                         <li>
-                            <a href="posts.php" class="active">Posts</a>
+                            <a href="posts.php">Posts</a>
                         </li>
                         <li>
                             <a href="contact_us.php">Contact Us</a>
@@ -192,7 +195,7 @@ unset($pdo);
                     <div class="container">
                         <div class="row">
                             <div style="text-align: center; width: 100%;">
-                                <p>All Rights Reserved. &copy; 2020 <b><a href="#">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
+                                <p>All Rights Reserved. &copy; 2020 <b><a href="../">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
                             </div>
                         </div>
                     </div><!-- end container -->

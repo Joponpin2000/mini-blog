@@ -102,7 +102,7 @@ else
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.php">Contact Us</a></li>
-                <li><a href="admin/posts.php">Login</a></li>
+                
                 <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li>
               </ul>
             </nav>
@@ -145,7 +145,7 @@ else
 
             
             <div class="pt-5">
-              <p>Category:  <a href="category.php?title=<?php echo $blog[0]['category_slug']?>"><?php echo $blog[0]['category_name']; ?></p>
+              <p>Category:  <a href="category.php?title=<?php echo $blog[0]['category_slug']?>"><?php echo $blog[0]['category_name']; ?></a></p>
             </div>
 
 
@@ -164,7 +164,6 @@ else
                     <h3><?php echo $reply['name']; ?></h3>
                     <div class="meta"><?php echo date("F j, Y ", strtotime($reply['added_on'])); ?></div>
                     <p><?php echo $reply['reply']; ?></p>
-                    <p><a href="#" class="reply rounded">Reply</a></p>
                   </div>
                 </li>
                 <?php
@@ -223,7 +222,9 @@ else
                 <div class="bio-body">
                   <h2>Mary Doe</h2>
                   <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
-                  <p><a href="#" class="btn btn-primary btn-sm rounded px-4 py-2">Read my bio</a></p>
+                  <!--
+                    <p><a href="#" class="btn btn-primary btn-sm rounded px-4 py-2">Read my bio</a></p>
+                  -->
                   <p class="social">
                     <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
                     <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
@@ -281,18 +282,14 @@ else
             <div class="sidebar-box">
               <h3 class="heading">Tags</h3>
               <ul class="tags">
-                <li><a href="#">Travel</a></li>
-                <li><a href="#">Adventure</a></li>
-                <li><a href="#">Food</a></li>
-                <li><a href="#">Lifestyle</a></li>
-                <li><a href="#">Business</a></li>
-                <li><a href="#">Freelancing</a></li>
-                <li><a href="#">Travel</a></li>
-                <li><a href="#">Adventure</a></li>
-                <li><a href="#">Food</a></li>
-                <li><a href="#">Lifestyle</a></li>
-                <li><a href="#">Business</a></li>
-                <li><a href="#">Freelancing</a></li>
+                <?php
+                  foreach ($categories as $category)
+                  {
+                ?>
+                <li><a href="category.php?title=<?php echo $category['slug']?>"><?php echo $category['name']?></a></li>
+                <?php
+                  }
+                ?>
               </ul>
             </div>
           </div>

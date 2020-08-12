@@ -46,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             $_SESSION["id"] = $stmt['id'];
 
             // Redirect user to home page
-            header("location: posts.php");
+            header("location: ./");
         }
         else
         {
@@ -110,7 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             <div class="container">
                 <div class="row">
                 <div style="text-align: center; width: 100%;">
-                    <p>All Rights Reserved. &copy; 2020 <b><a href="#">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
+                    <p>All Rights Reserved. &copy; 2020 <b><a href="../">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
                 </div>
                 </div>
             </div><!-- end container -->

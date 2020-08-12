@@ -67,6 +67,9 @@ $result = $db_connect->Read($sql);
                     </div>
                     <ul class="list-unstyled components">
                         <li>
+                            <a href="./" class="active">Dashboard</a>
+                        </li>
+                        <li>
                             <a href="categories.php">Categories</a>
                         </li>
                         <li>
@@ -76,7 +79,7 @@ $result = $db_connect->Read($sql);
                             <a href="contact_us.php">Contact Us</a>
                         </li>
                         <li>
-                            <a href="about.php" class="active">About Us</a>
+                            <a href="about.php">About Us</a>
                         </li>
                         <li>
                             <a href="logout.php">Logout</a>
@@ -152,7 +155,7 @@ $result = $db_connect->Read($sql);
                         <div class="container">
                             <div class="row">
                             <div style="text-align: center; width: 100%;">
-                                <p>All Rights Reserved. &copy; 2020 <b><a href="#">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
+                                <p>All Rights Reserved. &copy; 2020 <b><a href="../">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
                             </div>
                             </div>
                         </div><!-- end container -->

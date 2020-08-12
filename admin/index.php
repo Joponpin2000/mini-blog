@@ -11,26 +11,6 @@ if(!isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] !== true))
 	header("location:adminlogin.php");
 }
 
-if (isset($_GET['type']) && trim($_GET['type']) != '')
-{
-    $type = trim($_GET['type']);
-
-    if ($type == 'delete')
-    {
-        $id = trim($_GET['id']);
-        
-        // Execute a Delete statement
-        $sql = "DELETE FROM about_us";
-        $stmt = $db_connect->Remove($sql);
-
-        // Close statement
-        unset($stmt);
-    }
-}
-
-// Populate data from database
-$sql = "SELECT * FROM about_us";
-$result = $db_connect->Read($sql);
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +47,7 @@ $result = $db_connect->Read($sql);
                     </div>
                     <ul class="list-unstyled components">
                         <li>
-                            <a href="./">Dashboard</a>
+                            <a href="./" class="active">Dashboard</a>
                         </li>
                         <li>
                             <a href="categories.php">Categories</a>
@@ -79,7 +59,7 @@ $result = $db_connect->Read($sql);
                             <a href="contact_us.php">Contact Us</a>
                         </li>
                         <li>
-                            <a href="about.php" class="active">About Us</a>
+                            <a href="about.php">About Us</a>
                         </li>
                         <li>
                             <a href="logout.php">Logout</a>
@@ -93,47 +73,53 @@ $result = $db_connect->Read($sql);
                         </div>
                     </nav>
                     <div class="title">
-                        <h3>About</h3>
+                        <h3>Dashboard</h3>
                     </div>
-                    <?php
-                        if ($result)
-                        {
-                    ?>
-                            <div class="table" style="width: 100%;">
-                                <table style="width: 100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Heading</th>
-                                            <th>Body</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><?php echo $result[0]['heading'] ?></td>
-                                            <td><?php echo substr_replace($result[0]['body'], "...", 100); ?></td>
-                                            <td style="text-align: right;">
-                                                <?php
-                                                echo "<span class='sett edit'><a href='manage_about.php?id=" . $result[0]['id'] .  "'>Edit</a></span>";
 
-                                                echo "&nbsp;<span class='sett delete'><a href='?type=delete&id=" . $result[0]['id'] .  "'>Delete</a><span>";
-                                                ?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
+                                <a href="categories.php">
+                                    <div class="service-card btn" style="background: inherit;">
+                                    <div class="caption">
+                                        <h4>Categories</h4>
+                                        <p>Manage Categories</p>
+                                    </div>
+                                    </div>
+                                </a>
                             </div>
-                    <?php 
-                        }
-                        else
-                        {
-                    ?>
-                        <h5><a href="manage_about.php" style="text-decoration: underline; color: #7386D5;">Edit</a></h5>
-
-                            <h5 style="color: red;">No About yet!</h5>
-                    <?php
-                        }
-                    ?>
+                            <div class="col-sm-6 col-md-4 col-lg-4">
+                                <a href="posts.php">
+                                    <div class="service-card btn" style="background: inherit;">
+                                    <div class="caption">
+                                        <h4>Posts</h4>
+                                        <p>Manage Posts</p>
+                                    </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-4">
+                                <a href="contact_us.php">
+                                    <div class="service-card btn" style="background: inherit;">
+                                    <div class="caption">
+                                        <h4>Contacts</h4>
+                                        <p>Manage Contacts</p>
+                                    </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-4">
+                                <a href="about.php">
+                                    <div class="service-card btn" style="background: inherit;">
+                                    <div class="caption">
+                                        <h4>About</h4>
+                                        <p>Manage About</p>
+                                    </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="copyrights">
                         <div class="container">
@@ -148,8 +134,7 @@ $result = $db_connect->Read($sql);
                 
             </div>
 
-
             <script src="custom.js"></script>
             <script src="../js/main.js"></script>
     </body>
-</html
+</html>

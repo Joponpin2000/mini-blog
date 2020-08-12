@@ -13,7 +13,7 @@ if(!isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] !== true))
 	header("location:adminlogin.php");
 }
 
-$name = "";
+$name = $description = "";
 $msg = "";
 
 if (isset($_GET['id']) && (trim($_GET['id']) != ''))
@@ -26,7 +26,8 @@ if (isset($_GET['id']) && (trim($_GET['id']) != ''))
 
     if ($stmt)
     {
-        $name = $stmt[0]['name'];  
+        $name = $stmt[0]['name'];
+        $description = $stmt[0]['description'];
     }
     else
     {
@@ -43,10 +44,11 @@ if(isset($_POST['submit']))
 {
     $name = trim($_POST['name']);
     $slug = slug($name);
+    $description = trim($_POST['description']);
 
     if (empty($slug))
     {
-        $msg = "Please provide a better category name!";
+        $msg = "Please provide another category name!";
     }
 
     if ($msg == "")
@@ -55,8 +57,8 @@ if(isset($_POST['submit']))
         {
             $id = trim($_GET['id']);
                 // Execute an update statement
-                $sql = "UPDATE topics SET name = :name, slug = :slug WHERE id = :id ";
-                $stmt = $db_connect->Update($sql, ['name' => $name, 'slug' => $slug, 'id' => $id]);
+                $sql = "UPDATE topics SET name = :name, description = :description, slug = :slug WHERE id = :id ";
+                $stmt = $db_connect->Update($sql, ['name' => $name, 'description' => $description, 'slug' => $slug, 'id' => $id]);
 
                 // Close statement
                 unset($stmt);
@@ -64,8 +66,8 @@ if(isset($_POST['submit']))
         else
         {            
             // Execute an insert statement
-            $sql = "INSERT INTO topics (name, slug) VALUES (:name, :slug)";
-            $stmt = $db_connect->Insert($sql, ['name' => $name, 'slug' => $slug]);
+            $sql = "INSERT INTO topics (name, description slug) VALUES (:name, :description :slug)";
+            $stmt = $db_connect->Insert($sql, ['name' => $name, 'description' => $description, 'slug' => $slug]);
 
             // Close statement
             unset($stmt);
@@ -114,6 +116,9 @@ unset($pdo);
                     </div>
                     <ul class="list-unstyled components">
                         <li>
+                            <a href="./">Dashboard</a>
+                        </li>
+                        <li>
                             <a href="categories.php" class="active">Categories</a>
                         </li>
                         <li>
@@ -123,7 +128,7 @@ unset($pdo);
                             <a href="contact_us.php">Contact Us</a>
                         </li>
                         <li>
-                            <a href="about.php" class="active">About Us</a>
+                            <a href="about.php">About Us</a>
                         </li>
                         <li>
                             <a href="logout.php">Logout</a>
@@ -149,6 +154,10 @@ unset($pdo);
                                     <label for="name" class="form-control-label">Category</label>
                                     <input type="text" name="name" class="form-control" value="<?php echo $name ?>" placeholder="Enter category name" required/>
                                 </div>
+                                <div class="form-group">
+                                    <label for="description" class="form-control-label">Description</label>
+                                    <input type="text" name="description" class="form-control" value="<?php echo $description ?>" placeholder="Enter category description" required/>
+                                </div>
                                 <button type="submit" name="submit" class="btn btn-warning btn-block">Submit</button>
                             </form>
                             </div>
@@ -158,7 +167,7 @@ unset($pdo);
                     <div class="container">
                         <div class="row">
                             <div style="text-align: center; width: 100%;">
-                                <p>All Rights Reserved. &copy; 2020 <b><a href="#">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
+                                <p>All Rights Reserved. &copy; 2020 <b><a href="../">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
                             </div>
                         </div>
                     </div><!-- end container -->

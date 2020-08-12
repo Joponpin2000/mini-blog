@@ -182,6 +182,49 @@ ul ul a {
   100% { border-width: 10px;}
 }
 
+/*================================================
+            DASHBOARD                             
+================================================*/
+.service-card {
+    border-radius: 20px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.212);
+    padding: 30px;
+    margin: 30px;
+    height: 150px;
+    text-align: center;
+}
+#services .owl-carousel {
+    z-index: -1;
+}
+
+#services .thumbnail {
+    width: 107px;
+    height: 100px;
+    text-align: center;
+    margin: 15px 0;
+}
+
+#services .thumbnail.fa {
+    color: black;
+}
+
+#services .thumbnail.btn {
+    border: 10px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    color: white;
+    background-color: #4798FF;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    transition: all 0.4s ease 0s;
+}
+
+#services .thumbnail.btn:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;
+    border-color: #4798FF;
+}
 
 /*===============================================
 ============ SCROLL TO TOP ====================*/

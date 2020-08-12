@@ -28,8 +28,20 @@ if (isset($_GET['type']) && trim($_GET['type']) != '')
     }
 }
 
-// Populate data from database
-$sql = "SELECT * FROM topics ORDER BY id DESC";
+$limit = 5;
+
+if (isset($_GET['page']))
+{
+  $page = trim($_GET['page']);
+}
+else
+{
+  $page = 1;
+}
+
+$start_from = ($page-1) * $limit;
+
+$sql = "SELECT * FROM topics ORDER BY id DESC LIMIT $start_from, $limit";
 $result = $db_connect->Read($sql);
 ?>
 
@@ -67,6 +79,9 @@ $result = $db_connect->Read($sql);
                     </div>
                     <ul class="list-unstyled components">
                         <li>
+                            <a href="./">Dashboard</a>
+                        </li>
+                        <li>
                             <a href="categories.php" class="active">Categories</a>
                         </li>
                         <li>
@@ -76,7 +91,7 @@ $result = $db_connect->Read($sql);
                             <a href="contact_us.php">Contact Us</a>
                         </li>
                         <li>
-                            <a href="about.php" class="active">About Us</a>
+                            <a href="about.php">About Us</a>
                         </li>
                         <li>
                             <a href="logout.php">Logout</a>
@@ -101,22 +116,19 @@ $result = $db_connect->Read($sql);
                                 <table style="width: 100%">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>ID</th>
                                             <th>Category</th>
+                                            <th>Description</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $i = 1;
                                             foreach ($result as $row)
                                             {
                                         ?>
                                                 <tr>
-                                                    <td><?php echo $i ?></td>
-                                                    <td><?php echo $row['id'] ?></td>
                                                     <td><?php echo $row['name'] ?></td>
+                                                    <td><?php echo $row['description'] ?></td>
                                                     <td style="text-align: right;">
                                                         <?php
                                                         echo "<span class='sett edit'><a href='manage_categories.php?id=" . $row['id'] .  "'>Edit</a></span>";
@@ -126,7 +138,6 @@ $result = $db_connect->Read($sql);
                                                     </td>
                                                 </tr>
                                         <?php
-                                            ++$i;
                                             }
                                         ?>
                                     </tbody>
@@ -141,12 +152,29 @@ $result = $db_connect->Read($sql);
                     <?php
                         }
                     ?>
-
-                    <div class="copyrights">
+                    
+            <?php
+                $result_db = "SELECT COUNT(id) FROM posts";
+                $row_db = $database->Read($result_db);
+                $total_records = $row_db[0]['COUNT(id)'];
+                $total_pages = ceil($total_records / $limit);
+                $pagLink = "";
+                for ($i = 1; $i <= $total_pages; $i++)
+                {
+                    if ($i == $page)
+                    $pagLink .= "<a class='btn view-btn1' style='margin-right:20px; background-color: grey; color: red;' href='posts.php?page=" . $i . "'>" . $i . "  </a>";
+                    else
+                    {                            
+                        $pagLink .= "<a class='btn view-btn1' style='margin-right:20px' href='posts.php?page=" . $i . "'>" . $i . "  </a>";
+                    }
+                }
+                echo $pagLink;
+            ?>
+            <div class="copyrights">
                         <div class="container">
                             <div class="row">
                             <div style="text-align: center; width: 100%;">
-                                <p>All Rights Reserved. &copy; 2020 <b><a href="#">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
+                                <p>All Rights Reserved. &copy; 2020 <b><a href="../">MINI BLOG</a></b> Developed by : <a href="jofedo.netlify.app"><b>Idowu Joseph</b></a></p>
                             </div>
                             </div>
                         </div><!-- end container -->
